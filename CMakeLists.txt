@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-project(Strixel)
+project(Ariadne-String)
 
 if(MSVC)
   set(CMAKE_USE_RELATIVE_PATHS ON CACHE INTERNAL "" FORCE)
@@ -17,19 +17,11 @@ if(ENABLE_SOLUTION_FOLDERS)
 endif()
 
 add_definitions(-std=c++14)
+add_definitions(-D_USE_MATH_DEFINES)
 
-include_directories(${CMAKE_SOURCE_DIR}/3rdparty/pugixml/src)
 
 add_library(pugixml STATIC ${CMAKE_SOURCE_DIR}/3rdparty/pugixml/src/pugixml.cpp)
 set_target_properties(pugixml PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 add_subdirectory(src)
 
-if(NOT NO_TESTS)
-  include(CTest)
-  add_subdirectory(3rdparty/googletest)
-  enable_testing()
-  add_subdirectory(tests)
-else()
-  message(STATUS "Tests disabled")
-endif()

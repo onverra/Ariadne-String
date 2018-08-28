@@ -1,4 +1,4 @@
-set(strixel_SRC
+set(Ariadne-String_SRC
   main.cpp
   AlgSimple.cpp
   Preview.cpp
@@ -9,17 +9,20 @@ set(strixel_SRC
   ../3rdparty/imgui/examples/opengl3_example/imgui_impl_glfw_gl3.cpp
   )
 
-set(strixel_HDR
+set(Ariadne-String_HDR
   AlgSimple.h
   Preview.h
   Solution.h
   )
 
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/imgui/)
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/imgui/examples/libs/gl3w)
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/imgui/examples/opengl3_example/)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/imgui/)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/glfw/include/)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/imgui/examples/libs/gl3w)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/imgui/examples/opengl3_example/)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/pugixml/src)
 
-# add_definitions(-DIMGUI_DISABLE_TEST_WINDOW)
+link_directories(${CMAKE_SOURCE_DIR}/3rdparty/glfw/build/src/$(ConfigurationName))
 
-add_executable(strixel ${strixel_SRC})
-target_link_libraries(strixel ${OPENGL_LIBRARIES} ${OpenCV_LIBS} glfw dl pugixml)
+add_executable(Ariadne-String ${Ariadne-String_SRC} ${Ariadne-String_HDR})
+
+target_link_libraries(Ariadne-String ${OPENGL_LIBRARIES} ${OpenCV_LIBS} pugixml glfw3)
