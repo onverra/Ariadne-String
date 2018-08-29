@@ -63,8 +63,8 @@ void Preview::draw(const Solution& solution)
         if (showPins_) {
             for(int pin = 0; pin < solution.getPins(); ++pin) {
                 ImVec2 center;
-                center.x = start.x + 250 + cos(pin * 360.0 / solution.getPins() * M_PI / 180) * 250;
-                center.y = start.y + 250 + sin(pin * 360.0 / solution.getPins() * M_PI / 180) * 250;
+                center.x = start.x + 250.f + cosf(pin * 360.0f / solution.getPins() * float(M_PI) / 180.f) * 250.f;
+                center.y = start.y + 250.f + sinf(pin * 360.0f / solution.getPins() * float(M_PI) / 180.f) * 250.f;
                 drawList->AddCircleFilled(center, pinThickness, ImColor(255, 100, 0), 8);
             }
         }
@@ -73,8 +73,8 @@ void Preview::draw(const Solution& solution)
             drawList->PathClear();
             for (auto const& pin : solution) {
                 ImVec2 pos;
-                pos.x = start.x + 250 + cos(pin * 360.0 / pins * M_PI / 180) * 250;
-                pos.y = start.y + 250 + sin(pin * 360.0 / pins * M_PI / 180) * 250;
+                pos.x = start.x + 250.f + cosf(pin * 360.f / pins * float(M_PI) / 180.f) * 250.f;
+                pos.y = start.y + 250.f + sinf(pin * 360.f / pins * float(M_PI) / 180.f) * 250.f;
                 drawList->PathLineTo(pos);
             }
             drawList->PathStroke(ImColor(ImVec4{stringColor_[0], stringColor_[1], stringColor_[2], stringAlpha_}), false);

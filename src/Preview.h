@@ -24,7 +24,7 @@ private:
     bool showPins_    = true;
     bool showStrings_ = true;
 
-    float stringAlpha_ = 0.2;
+    float stringAlpha_ = 0.2f;
     float pinThickness = 1.0;
     float backgroundColor_[4] = {1.0, 1.0, 1.0, 1.0};
     float stringColor_[4] = {0.0, 0.0, 0.0, 1.0};

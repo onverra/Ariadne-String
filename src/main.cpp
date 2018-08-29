@@ -90,7 +90,7 @@ int main(int argc, char** argv)
 
             // Settings
             ImGui::BeginMainMenuBar();
-            int menuHeight = ImGui::GetTextLineHeightWithSpacing();
+            float menuHeight = ImGui::GetTextLineHeightWithSpacing();
             if(ImGui::BeginMenu("File")) {
                 if(ImGui::MenuItem("Quit")) {
                     glfwSetWindowShouldClose(window, GL_TRUE);
