@@ -30,7 +30,7 @@ void AlgSimple::calculate(Solution& solution)
 
     cv::Mat image;
     cv::cvtColor(solution.getImage(), image, cv::COLOR_BGR2GRAY);
-    auto pins = solution.getPins();
+    int pins = solution.getPins();
 
     std::map<std::pair<int, int>, bool> strings;
 
@@ -40,17 +40,17 @@ void AlgSimple::calculate(Solution& solution)
         int nextPin = 0;
         int prevPin = 0;
 
-        cv::Point2d start{image.cols / 2 + cos(currentPin * 360 / pins * M_PI / 180) * image.cols / 2,
-                image.rows / 2 + sin(currentPin * 360 / pins * M_PI / 180) * image.rows / 2};
+        cv::Point2d start{image.cols / 2 + cos(float(currentPin) * 2.f * M_PI / float(pins)) * image.cols / 2,
+                image.rows / 2 + sin(float(currentPin) * 2.f * M_PI / float(pins)) * image.rows / 2};
 
-        for (int pin = ((currentPin + 1 + minSpace_) % 360); ((pin + minSpace_) % 360) != currentPin; pin = ++pin % 360)
+        for (int pin = ((currentPin + 1 + minSpace_) % pins); ((pin + minSpace_) % 360) != currentPin; pin = (pin + 1) % pins)
         {
             if (!morePassesPerPinPair_ ||
                 (strings.find(std::make_pair(prevPin, pin)) == strings.end() &&
                  strings.find(std::make_pair(pin, prevPin)) == strings.end()))
             {
-                cv::Point2d end{image.cols / 2 + cos(pin * 360 / pins * M_PI / 180) * image.cols / 2,
-                        image.rows / 2 + sin(pin * 360 / pins * M_PI / 180) * image.rows / 2};
+                cv::Point2d end{image.cols / 2 + cos(float(pin) * 2.f * M_PI / float(pins)) * image.cols / 2,
+                        image.rows / 2 + sin(float(pin) * 2.f * M_PI / float(pins)) * image.rows / 2};
 
                 cv::LineIterator line(image, start, end, 8);
                 float sum = 0;
@@ -68,8 +68,8 @@ void AlgSimple::calculate(Solution& solution)
             }
         }
 
-        cv::Point2d end{image.cols / 2 + cos(nextPin * 360 / pins * M_PI / 180) * image.cols / 2,
-                image.rows / 2 + sin(nextPin * 360 / pins * M_PI / 180) * image.rows / 2};
+        cv::Point2d end{image.cols / 2 + cos(float(nextPin) * 2.f * M_PI / float(pins)) * image.cols / 2,
+                image.rows / 2 + sin(float(nextPin) * 2.f * M_PI / float(pins)) * image.rows / 2};
 
         cv::LineIterator line(image, start, end, 8);
         for (int index = 0; index < line.count; ++index, line++)
