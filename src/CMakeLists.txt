@@ -1,8 +1,10 @@
+file(GLOB Ariadne-String_CPP
+    "*.cpp"
+  )
+
+
 set(Ariadne-String_SRC
-  main.cpp
-  AlgSimple.cpp
-  Preview.cpp
-  Solution.cpp
+  ${Ariadne-String_CPP}
   ../3rdparty/imgui/examples/libs/gl3w/GL/gl3w.c
   ../3rdparty/imgui/imgui_draw.cpp
   ../3rdparty/imgui/imgui.cpp
@@ -15,6 +17,11 @@ set(Ariadne-String_HDR
   Preview.h
   Solution.h
   )
+
+file(GLOB Ariadne-String_HDR
+    "*.h"
+  )
+
 
 include_directories(${CMAKE_SOURCE_DIR}/3rdparty/imgui/)
 include_directories(${CMAKE_SOURCE_DIR}/3rdparty/glfw/include/)
