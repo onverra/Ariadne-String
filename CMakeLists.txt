@@ -19,6 +19,9 @@ endif()
 add_definitions(-std=c++14)
 add_definitions(-D_USE_MATH_DEFINES)
 
+if (MSVC)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Ariadne-String)
+endif ()
 
 add_library(pugixml STATIC ${CMAKE_SOURCE_DIR}/3rdparty/pugixml/src/pugixml.cpp)
 set_target_properties(pugixml PROPERTIES POSITION_INDEPENDENT_CODE ON)
