@@ -6,7 +6,8 @@ set(Ariadne-String_SRC
   ../3rdparty/imgui/examples/libs/gl3w/GL/gl3w.c
   ../3rdparty/imgui/imgui_draw.cpp
   ../3rdparty/imgui/imgui.cpp
-  ../3rdparty/imgui/examples/opengl3_example/imgui_impl_glfw_gl3.cpp
+  ../3rdparty/imgui/examples/imgui_impl_glfw.cpp
+  ../3rdparty/imgui/examples/imgui_impl_opengl3.cpp
   )
 
 set(Ariadne-String_HDR
@@ -18,7 +19,7 @@ set(Ariadne-String_HDR
 include_directories(${CMAKE_SOURCE_DIR}/3rdparty/imgui/)
 include_directories(${CMAKE_SOURCE_DIR}/3rdparty/glfw/include/)
 include_directories(${CMAKE_SOURCE_DIR}/3rdparty/imgui/examples/libs/gl3w)
-include_directories(${CMAKE_SOURCE_DIR}/3rdparty/imgui/examples/opengl3_example/)
+include_directories(${CMAKE_SOURCE_DIR}/3rdparty/imgui/examples)
 include_directories(${CMAKE_SOURCE_DIR}/3rdparty/pugixml/src)
 
 link_directories(${CMAKE_SOURCE_DIR}/3rdparty/glfw/build/src/$(ConfigurationName))

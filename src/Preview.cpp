@@ -40,10 +40,10 @@ void Preview::draw(const Solution& solution)
         ImGui::Checkbox("Strings", &showStrings_);
 
         ImGui::SliderFloat("String Alpha", &stringAlpha_, 0.0, 1.0);
-        ImGui::ColorEditMode(ImGuiColorEditMode_RGB);
+        /*ImGui::ColorEditMode(ImGuiColorEditMode_RGB);
         ImGui::ColorEdit3("Background Color", backgroundColor_);
         ImGui::ColorEdit3("String Color", stringColor_);
-
+*/
         ImGui::Separator();
         auto drawList = ImGui::GetWindowDrawList();
         auto start = ImGui::GetCursorScreenPos();
