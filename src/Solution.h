@@ -1,9 +1,11 @@
-#ifndef STRIXEL_SOLUTION_H
-#define STRIXEL_SOLUTION_H
+#pragma once 
 
+#include "GenerationConfig.h"
+#include "imgui.h"
 #include <opencv2/opencv.hpp>
 
 #include <vector>
+
 
 class Solution
 {
@@ -29,7 +31,7 @@ public:
     }
 
     int getPins() const {
-        return pins_;
+        return pinsOnBoard_.size();
     }
 
     void push_back(int pin) {
@@ -60,15 +62,40 @@ public:
         return pattern_.cend();
     }
 
+	void scaleToDisplay(std::vector<cv::Point2f> const &in, std::vector<ImVec2> &out, float displaySize)
+	{
+		float const displayRatio = displaySize / boardConfig_.width_;
+
+		int const pinsCount = in.size();
+		out.resize(pinsCount);
+
+		float const halfDisplaySize = displaySize / 2.f;
+
+		for (int pin = 0; pin < pinsCount; ++pin)
+		{
+			ImVec2 &pos = out[pin];
+			pos.x = in[pin].x;
+			pos.y = in[pin].y;
+
+			pos.x *= displayRatio;
+			pos.y *= displayRatio;
+
+			pos.x += halfDisplaySize;
+			pos.y += halfDisplaySize;
+		}
+	}
+
+
     void save(const char* file);
     void load(const char* file);
 
 private:
     cv::Mat image_;
     int passes_ = 3000;
-    float pinThickness_ = 1.0;
-    int pins_ = 200;
-    std::vector<int> pattern_;
+	std::vector<int> pattern_;
+
+public:
+	std::vector<cv::Point2f> pinsOnBoard_;
+	BoardConfig boardConfig_;
 };
 
-#endif // STRIXEL_SOLUTION_H

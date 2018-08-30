@@ -1,6 +1,8 @@
 #include "AlgSimple.h"
 #include "Preview.h"
+#include "SetupView.h"
 #include "Solution.h"
+#include "GenerationConfig.h"
 
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
@@ -78,8 +80,8 @@ int main(int argc, char** argv)
 
     Solution solution(image);
     AlgSimple simple;
-    Preview preview{solution};
-    Preview preview2{solution};
+	Preview preview{ solution };
+	SetupView setupView{solution};
 
     while (!glfwWindowShouldClose(window)) {
         if(!glfwGetWindowAttrib(window, GLFW_ICONIFIED) && glfwGetWindowAttrib(window, GLFW_VISIBLE)) {
@@ -130,8 +132,8 @@ int main(int argc, char** argv)
             ImGui::PopStyleVar();
 
             // Preview
-            preview.draw(solution);
-            preview2.draw(solution);
+			preview.draw(solution);
+			setupView.draw(solution);
 
             // Rendering
             int display_w, display_h;

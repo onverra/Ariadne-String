@@ -34,23 +34,28 @@ void AlgSimple::calculate(Solution& solution)
 
     std::map<std::pair<int, int>, bool> strings;
 
+	std::vector<ImVec2> pinsOnDisplay;
+
+	solution.scaleToDisplay(solution.pinsOnBoard_, pinsOnDisplay, image.cols);
+
+
     for(currentPass_ = 1; currentPass_ <= solution.getPasses(); currentPass_++)
     {
         float maxScore = 0;
         int nextPin = 0;
         int prevPin = 0;
 
-        cv::Point2d start{image.cols / 2 + cos(float(currentPin) * 2.f * M_PI / float(pins)) * image.cols / 2,
-                image.rows / 2 + sin(float(currentPin) * 2.f * M_PI / float(pins)) * image.rows / 2};
 
-        for (int pin = ((currentPin + 1 + minSpace_) % pins); ((pin + minSpace_) % 360) != currentPin; pin = (pin + 1) % pins)
+        cv::Point2d start{ pinsOnDisplay[currentPin].x, pinsOnDisplay[currentPin].y };
+
+        for (int pin = ((currentPin + 1 + minSpace_) % pins); ((pin + minSpace_) % pins) != currentPin; pin = (pin + 1) % pins)
         {
             if (!morePassesPerPinPair_ ||
                 (strings.find(std::make_pair(prevPin, pin)) == strings.end() &&
                  strings.find(std::make_pair(pin, prevPin)) == strings.end()))
             {
-                cv::Point2d end{image.cols / 2 + cos(float(pin) * 2.f * M_PI / float(pins)) * image.cols / 2,
-                        image.rows / 2 + sin(float(pin) * 2.f * M_PI / float(pins)) * image.rows / 2};
+
+				cv::Point2d end{ pinsOnDisplay[pin].x, pinsOnDisplay[pin].y };
 
                 cv::LineIterator line(image, start, end, 8);
                 float sum = 0;
@@ -68,8 +73,8 @@ void AlgSimple::calculate(Solution& solution)
             }
         }
 
-        cv::Point2d end{image.cols / 2 + cos(float(nextPin) * 2.f * M_PI / float(pins)) * image.cols / 2,
-                image.rows / 2 + sin(float(nextPin) * 2.f * M_PI / float(pins)) * image.rows / 2};
+		cv::Point2d end{ pinsOnDisplay[nextPin].x, pinsOnDisplay[nextPin].y };
+
 
         cv::LineIterator line(image, start, end, 8);
         for (int index = 0; index < line.count; ++index, line++)
